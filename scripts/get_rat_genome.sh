@@ -7,3 +7,9 @@ rsync --copy-links --recursive --times --verbose rsync://ftp.ncbi.nlm.nih.gov/ge
 # a few files that weren't part of the original checksummed directory.
 find -type f -exec md5sum '{}' \; > md5sum.txt
 diff <(sort md5sum.txt) <(sort md5checksums.txt)
+
+
+# Get gene annotations GTF from ENSEMBL
+rsync -av rsync://ftp.ensembl.org/ensembl/pub/release-90/gtf/rattus_norvegicus /srv/gsfs0/projects/montgomery/mgloud/projects/motrpac/rats/data/gtf
+
+
