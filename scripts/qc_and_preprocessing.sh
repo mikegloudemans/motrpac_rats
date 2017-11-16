@@ -6,18 +6,54 @@
 # Look more into RNA-seq best practices. Find pipeline for quantification
 
 module load STAR/2.5.3a
+module load bcl2fastq2/2.17.1.14
 
 ##########################
 # Part 0: Fastq conversion
 ##########################
 
-# TODO: If not done already
+# De-multiplexing https://www.biostars.org/p/205712/
+
+# Example adapted from Laure Fresard:
+set -o nounset -o pipefail
+# SCG3
+
+runName=171106_D00125R_0250_BHYFLGBCXY # e.g. 140827_NS500418_0004_AH03GGAFXX
+runDirectory=/srv/gsfs0/projects/montgomery/mgloud/projects/motrpac/rats/data/bcl/rsync
+
+user=mgloud@stanford.edu
+seqDir=$runDirectory/$runName
+outDir=/srv/gsfs0/projects/montgomery/mgloud/projects/motrpac/rats/data/fastq
+JOB=${runName}_bcl2fastq
+logOUT=$JOB.out
+logError=$JOB.error
+rm -f $logOUT $logError
+
+# 32G to 12G
+qsubCMD=\
+"qsub \
+    -cwd -V -S /bin/bash -R y -w e -b y \
+    -m beas -M $user \
+    -l h_vmem=32G \
+    -l h_rt=24:00:00 \
+    -N $JOB -o $logOUT -e $logError \
+    bcl2fastq \
+    --runfolder-dir $seqDir \
+    --output-dir $outDir \
+    --minimum-trimmed-read-length 50 \
+    --stats-dir ./stats \
+    --reports-dir ./reports"
+
+echo $qsubCMD
+$qsubCMD
+
 
 ##########################
 # Part 1: QC
 ##########################
 
 # For each sample
+
 
 	# Run fastQC
 	fastqDir=/srv/gsfs0/projects/montgomery/mgloud/projects/motrpac/rats/data/fastq
