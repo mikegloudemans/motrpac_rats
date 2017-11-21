@@ -23,5 +23,5 @@ bcl2fastq \
     --runfolder-dir $seqDir \
     --output-dir $outDir \
     --minimum-trimmed-read-length 50 \
-    --stats-dir /srv/gsfs0/projects/montgomery/mgloud/projects/motrpac/rats/log/$runName/stats \
-    --reports-dir /srv/gsfs0/projects/montgomery/mgloud/projects/motrpac/rats/log/$runName/reports
+    --stats-dir /srv/gsfs0/projects/montgomery/mgloud/projects/motrpac/rats/output/preprocessing/$runName/stats \
+    --reports-dir /srv/gsfs0/projects/montgomery/mgloud/projects/motrpac/rats/output/preprocessing/$runName/reports
