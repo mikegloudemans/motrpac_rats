@@ -1,6 +1,9 @@
 #!/bin/bash
 
-java -jar /srv/gsfs0/software/picard-tools/2.8.0/picard.jar CollectRnaSeqMetrics \
+module load picard-tools/2.13.2
+
+
+java -jar /srv/gsfs0/software/picard-tools/2.13.2/picard.jar CollectRnaSeqMetrics \
      REF_FLAT=$1 \
      INPUT=$2 \
      OUTPUT=$3 \
